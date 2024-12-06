@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contagem Regressiva até o Final do Mês</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 50px;
+        }
+
+        #timer {
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+            background-color: #f8f8f8;
+            border-radius: 10px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Tempo para vender</h1>
+    <div id="timer"></div>
+
+    <script>
+        // Cria um objeto de data representando o final do mês atual
+        var now = new Date();
+        var endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59); // Último dia do mês à meia-noite
+
+        // Atualiza o cronômetro a cada 1 segundo
+        var x = setInterval(function() {
+            // Pega a data e hora atual
+            var now = new Date().getTime();
+
+            // Calcula a diferença entre o tempo atual e a data final (fim do mês)
+            var distance = endOfMonth - now;
+
+            // Calcula dias, horas, minutos e segundos restantes
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Exibe o cronômetro no HTML
+            document.getElementById("timer").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+            // Se a contagem regressiva terminar, mostra "FIM DO MÊS"
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("timer").innerHTML = "FIM DO MÊS!";
+            }
+        }, 1000);
+    </script>
+
+</body>
+</html>
